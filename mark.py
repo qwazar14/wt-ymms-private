@@ -8,10 +8,10 @@ import screenshoter
 
 
 class Mark:
-    def __init__(self, yellow_mark_coordinates=0, player_mark_coordinates=0, map_scale=0):
+    def __init__(self, yellow_mark_coordinates=0, player_mark_coordinates=0):
         self._yellow_mark_coordinates = yellow_mark_coordinates
         self._player_mark_coordinates = player_mark_coordinates
-        self._map_scale = map_scale
+        # self._map_scale = map_scale
 
     def get_yellow_mark_coordinates(self):
         return self._yellow_mark_coordinates
@@ -19,11 +19,11 @@ class Mark:
     def get_player_mark_coordinates(self):
         return self._player_mark_coordinates
 
-    def set_map_scale(self, map_scale):
-        self._map_scale = map_scale
+    # def set_map_scale(self, map_scale):
+    #     self._map_scale = map_scale
 
-    def get_map_scale(self):
-        return self._map_scale
+    # def get_map_scale(self):
+    #     return self._map_scale
 
     def set_masks(self):
         image = post_processing.gaussian_blur(screenshoter.get_screenshot())  # убираем мелкий мусор
@@ -40,7 +40,7 @@ class Mark:
         self._yellow_mark_coordinates = get_mean_value(mask_yellow)  # Вносим значения
         self._player_mark_coordinates = get_mean_value(mask_player)
 
-    def calc_distance(self):
+    def calc_distance(self, scale):
         yellow_mark = self._yellow_mark_coordinates
         player_mark = self._player_mark_coordinates
         try:
@@ -52,10 +52,9 @@ class Mark:
             # print('length_x: ', length_x, 'length_y: ', length_y)
 
             result = pow(length_x, 2) + pow(length_y, 2)  # пифагор
-            scale = self._map_scale
-
+            # scale = self._map_scale
             # корень суммы квадратов катетов умножаем на 417(ТАК НАДА) деленное на масштаб и умножаем на 2
-            return int(math.sqrt(result) * (417 / scale) * 2)
+            return int(math.sqrt(result) * (417 / int(scale)) * 2)
         except TypeError:
             return
 
