@@ -6,7 +6,7 @@ pytesseract.pytesseract.tesseract_cmd = r'C:\Program Files\Tesseract-OCR\tessera
 
 def find_text(image):
     return pytesseract.image_to_string(
-        image, lang='eng',config='--psm 6 --oem 3 -c tessedit_char_whitelist=0123456789')
+        image, lang='eng', config='--psm 6 --oem 3 -c tessedit_char_whitelist=0123456789')
 
 
 def crop_image(image, x, y, w, h):

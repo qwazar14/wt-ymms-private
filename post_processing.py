@@ -1,14 +1,13 @@
 import cv2
 
-from screenshoter import get_screenshot
 
 
 def gaussian_blur(image):
     return cv2.GaussianBlur(image, (5, 5), 0)
 
-
-def get_mask_on_image(mask):
-    return cv2.bitwise_and(get_screenshot(), get_screenshot(), mask=mask)
+#
+# def get_mask_on_image(mask):
+#     return cv2.bitwise_and(get_screenshot(), get_screenshot(), mask=mask)
 
 
 def sum_images(src1, src2):
