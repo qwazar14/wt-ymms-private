@@ -55,15 +55,13 @@ class Mark:
         yellow_mark = self._yellow_mark_coordinates  # координаты желтой метки
         player_mark = self._player_mark_coordinates  # координаты игрока
         try:
-            #  Class 'int' does not define '__getitem__', so the '[]' operator cannot be used on its instances
-            #  Я не ебу чего оно ругается. Пашет и на том - спасибо
             length_x = abs(yellow_mark[0] - player_mark[0])  # находим дистанцию по х
             length_y = abs(yellow_mark[1] - player_mark[1])  # находим дистанцию по у
             result = math.sqrt(length_x ** 2 + length_y ** 2)  # находим дистанцию по координатам
             # SQUARE_SIZE = 58  # Размер квадрата в пикселях
 
             # return int(result * scale / SQUARE_SIZE)   # 25/23
-            return int(result * scale / 100 * 1.67)  # 30/18
+            # return int(result * scale / 100 * 1.67)  # 30/18
             # return int(result * scale / 60 + scale / 100)   # 29/19
 
         except TypeError:
