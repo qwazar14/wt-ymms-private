@@ -20,6 +20,7 @@ class Main:
         if abs(res[1] - real_distance) >= distance_range:
             print(f'Ошибка в карте {map_number}')
             print(f'Результат: {res[1]}, должно быть: от {real_distance-distance_range} до {real_distance+distance_range}')
+            print(f'Масштаб: {scale}')
             print('-' * 20)
             self.bad += 1
         else:

@@ -61,22 +61,29 @@ class Mark:
             length_y = abs(yellow_mark[1] - player_mark[1])  # находим дистанцию по у
 
             result = pow(length_x, 2) + pow(length_y, 2)  # пифагор
-            SQUARE_SIZE = 58  # Размер квадрата в пикселях
-            # return int(math.sqrt(result) * scale / SQUARE_SIZE)  # возвращаем дистанцию в метрах
-            if scale <= 140:
-                return int(math.sqrt(result) * scale / SQUARE_SIZE)
-            elif scale == 180:
-                # k=scale/100-scale/1000
-                k = 1.2
-            elif scale == 200:
-                k = 1.3
-            elif scale == 225:
-                k = 2
-            elif scale == 250:
-                k = 2.5
-            else:
-                k = 1
-            return int(math.sqrt(result) * 417 / scale * k)  # возвращаем дистанцию в метрах
+            # SQUARE_SIZE = 58  # Размер квадрата в пикселях
+            # return int(math.sqrt(result) * scale / SQUARE_SIZE)   # 25/23
+            # return int(math.sqrt(result) * scale / 100 * 1.67)  # 30/18
+            # return int(math.sqrt(result) * scale / 60 + scale / 100)   # 29/19
+
+            # if scale <= 140:
+            #     k = 0.8
+            # elif scale == 170:
+            #     k = 0.9
+            # elif scale == 180:
+            #     # k=scale/100-scale/1000
+            #     k = 1.2
+            # elif scale == 190:
+            #     k = 1.35
+            # elif scale == 200:
+            #     k = 1.5
+            # elif scale == 225:
+            #     k = 2
+            # elif scale == 250:
+            #     k = 2.5
+            # else:
+            #     k = 1
+            # return int(math.sqrt(result) * 417 / scale * k)  # возвращаем дистанцию в метрах
 
         except TypeError:
             return
