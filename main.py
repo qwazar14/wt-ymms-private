@@ -1,7 +1,8 @@
 from time import sleep
 
 from mark import Mark
-
+from datetime import datetime
+start=datetime.now()
 
 class Main:
     def __init__(self):
@@ -108,3 +109,4 @@ main.test(map_number=49, scale=190, real_distance=145)
 print(f'Всего проверено: {main.good + main.bad}')
 print(f'Проверено правильно: {main.good}')
 print(f'Проверено неправильно: {main.bad}')
+print (datetime.now()-start)
