@@ -3,11 +3,9 @@ import math
 import cv2
 import numpy as np
 
-import post_processing
-
 
 class Mark:
-    def __init__(self, yellow_mark_coordinates=0, player_mark_coordinates=0, map_number=1):
+    def __init__(self, yellow_mark_coordinates=0, player_mark_coordinates=0, map_number=6):
         self._yellow_mark_coordinates = yellow_mark_coordinates
         self._player_mark_coordinates = player_mark_coordinates
         self._map_number = map_number
@@ -29,12 +27,19 @@ class Mark:
     #     image = np.uint8(image)
     #     # os.remove('temp.png')
     #     return image
+    def set_mask_for_borders(self):
+        image = self.get_screenshot()
+        # hsv = cv2.cvtColor(image, cv2.COLOR_RGB2HLS_FULL)
 
-    def get_yellow_mark_coordinates(self):
-        return self._yellow_mark_coordinates
 
-    def get_player_mark_coordinates(self):
-        return self._player_mark_coordinates
+        lower_border = np.array([0, 0, 0])
+        upper_border = np.array([100, 100, 100])
+
+        binary = cv2.inRange(image, lower_border, upper_border)
+
+        cv2.imshow('image', binary)
+        cv2.waitKey(0)
+        cv2.destroyAllWindows()
 
     def set_masks(self):
         image = cv2.GaussianBlur(self.get_screenshot(), (5, 5), 0)  # блюрим изображение
@@ -45,7 +50,8 @@ class Mark:
 
         lower_player = np.array([22, 50, 230])
         upper_player = np.array([100, 255, 255])
-
+        # lower_player = np.array([109, 142, 142])
+        # upper_player = np.array([255, 255, 255])
         mask_yellow = cv2.inRange(hsv, lower_yellow, upper_yellow)  # берем канал желтого
         mask_player = cv2.inRange(hsv, lower_player, upper_player)  # берем канал игрока
         self._yellow_mark_coordinates = get_mean_value(mask_yellow)  # Получаем среднее значение по маске
@@ -61,7 +67,7 @@ class Mark:
             # SQUARE_SIZE = 58  # Размер квадрата в пикселях
 
             # return int(result * scale / SQUARE_SIZE)   # 25/23
-            # return int(result * scale / 100 * 1.67)  # 30/18
+            return int(result * scale / 100 * 1.67)  # 30/18
             # return int(result * scale / 60 + scale / 100)   # 29/19
 
         except TypeError:
