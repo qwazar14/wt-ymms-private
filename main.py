@@ -1,6 +1,6 @@
 from random import random
 from time import sleep
-
+import gc
 from mark import Mark
 from datetime import datetime
 
@@ -46,9 +46,8 @@ class Main:
             res = marker.calc_distance()  # Считаем дистанцию
             if res is not None:
                 print('result:', res)
-
-            rand = random()  # На всякий случай
-            sleep(rand)
+            sleep(0.1)
+            gc.enable()
     except KeyboardInterrupt:
         exit(0)
 
