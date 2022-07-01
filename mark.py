@@ -2,31 +2,35 @@ import math
 
 import cv2
 import numpy as np
+from PIL import ImageGrab
 
 
 class Mark:
-    def __init__(self, yellow_mark_coordinates=0, player_mark_coordinates=0, map_number=6):
+    def __init__(self, yellow_mark_coordinates=0, player_mark_coordinates=0, map_number=6, map_scale=200, square_size=58):
         self._yellow_mark_coordinates = yellow_mark_coordinates
         self._player_mark_coordinates = player_mark_coordinates
         self._map_number = map_number
-        # self._map_scale = map_scale
+        self._map_scale = map_scale
+        self._square_size = square_size
 
-    ### DEBUG
-    def get_screenshot(self):  ### DEBUG
-        path = f'images/maps/map ({self._map_number}).png'
-        image = cv2.imread(path)
-        image = crop_screenshot(image)
-        image = np.uint8(image)
-        return image
-
-    # def get_screenshot():
-    #     im = ImageGrab.grab()
-    #     im.save('temp.png')
-    #     image = cv2.imread('temp.png')
+    # ### DEBUG
+    # def get_screenshot(self):  ### DEBUG
+    #     path = f'images/maps/map ({self._map_number}).png'
+    #     image = cv2.imread(path)
     #     image = crop_screenshot(image)
     #     image = np.uint8(image)
-    #     # os.remove('temp.png')
     #     return image
+
+    def get_screenshot(self):
+        im = ImageGrab.grab()
+        im.save('temp.png')
+        image = cv2.imread('temp.png')
+        image = crop_screenshot(image)
+        image = np.uint8(image)
+        # os.remove('temp.png')
+        return image
+
+
     def set_mask_for_borders(self):
         image = self.get_screenshot()
         # hsv = cv2.cvtColor(image, cv2.COLOR_RGB2HLS_FULL)
@@ -57,21 +61,21 @@ class Mark:
         self._yellow_mark_coordinates = get_mean_value(mask_yellow)  # Получаем среднее значение по маске
         self._player_mark_coordinates = get_mean_value(mask_player)  # Получаем среднее значение по маске
 
-    def calc_distance(self, scale):
+
+    def calc_distance(self):
         yellow_mark = self._yellow_mark_coordinates  # координаты желтой метки
         player_mark = self._player_mark_coordinates  # координаты игрока
         try:
             length_x = abs(yellow_mark[0] - player_mark[0])  # находим дистанцию по х
             length_y = abs(yellow_mark[1] - player_mark[1])  # находим дистанцию по у
             result = math.sqrt(length_x ** 2 + length_y ** 2)  # находим дистанцию по координатам
-            # SQUARE_SIZE = 58  # Размер квадрата в пикселях
+            return int(result * int(self._map_scale) / int(self._square_size))   # 25/23
 
-            # return int(result * scale / SQUARE_SIZE)   # 25/23
-            return int(result * scale / 100 * 1.67)  # 30/18
-            # return int(result * scale / 60 + scale / 100)   # 29/19
-
-        except TypeError:
+        except Exception:
             return
+        # return int(result * scale / 100 * 1.67)  # 30/18
+        # return int(result * scale / 60 + scale / 100)   # 29/19
+
 
 
 def get_mean_value(mask):
@@ -83,7 +87,7 @@ def get_mean_value(mask):
         int_counters = contours.astype(int)  # преобразуем в int
         return int_counters[0][0]  # возвращаем координаты
     except IndexError:
-        return "No mark found"
+        return
 
 
 def crop_screenshot(image):

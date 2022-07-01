@@ -1,3 +1,6 @@
+from random import random
+from time import sleep
+
 from mark import Mark
 from datetime import datetime
 
@@ -15,46 +18,39 @@ class Main:
         res = mark.calc_distance(scale)  # Получаем расстояние между метками игрока и желтой меткой
         return map_number, res  # Возвращаем номер карты и расстояние
 
-    def test(self, map_number, scale, real_distance):
-        res = self.run(map_number, scale)
-        distance_range = 10
-        if abs(res[1] - real_distance) >= distance_range:
-            print(f'Ошибка в карте {map_number}')
-            print(
-                f'Результат: {res[1]}, должно быть: от {real_distance - distance_range} до {real_distance + distance_range}')
-            print(f'Масштаб: {scale}')
-            print('-' * 20)
-            self.bad += 1
-        else:
-            # print(f'Карта {map_number} проверена')
-            # print(f'Результат: {res[1]}, должно быть: от {real_distance-distance_range} до {real_distance+distance_range}')
-            # print('-' * 20)
-            self.good += 1
+    # def test(self, map_number, scale, real_distance):
+    #     res = self.run(map_number, scale)
+    #     distance_range = 10
+    #     if abs(res[1] - real_distance) >= distance_range:
+    #         print(f'Ошибка в карте {map_number}')
+    #         print(
+    #             f'Результат: {res[1]}, должно быть: от {real_distance - distance_range} до {real_distance + distance_range}')
+    #         print(f'Масштаб: {scale}')
+    #         print('-' * 20)
+    #         self.bad += 1
+    #     else:
+    #         # print(f'Карта {map_number} проверена')
+    #         # print(f'Результат: {res[1]}, должно быть: от {real_distance-distance_range} до {real_distance+distance_range}')
+    #         # print('-' * 20)
+    #         self.good += 1
 
-    # try:
-    #     # scale = input(
-    #     #     "Масштабування мапи?: ")  # Отказался от OCR, для standalone-приложения гемморно и много ресов лишних жрёт
-    #     scale = 180
-    #     marker = Mark()
-    #     # marker.set_map_scale(scale)
-    #
-    #     # while True:
-    #     marker.set_masks()  # Создаём маски
-    #
-    #     # marker.get_yellow_mark_coordinates()  # Получаем средние координаты точек
-    #     # marker.get_player_mark_coordinates()
-    #
-    #     # print('player:', player)
-    #     # print('yellow:', yellow)
-    #
-    #     res = marker.calc_distance(scale)  # Считаем дистанцию
-    #     print('result:', res)
-    #
-    #         # rand = random.random()  # На всякий случай
-    #         # sleep(rand)
-    # except KeyboardInterrupt:
-    #     exit(0)
+    try:
+        scale = input(
+            "Масштабування мапи?: ")  # Отказался от OCR, для standalone-приложения гемморно и много ресов лишних жрёт
+        square_size = input("Розмір квадрата?: ")
 
+        marker = Mark(map_scale=scale, square_size=square_size)
+        while True:
+            marker.set_masks()  # Создаём маски
+
+            res = marker.calc_distance()  # Считаем дистанцию
+            if res is not None:
+                print('result:', res)
+
+            rand = random()  # На всякий случай
+            sleep(rand)
+    except KeyboardInterrupt:
+        exit(0)
 
 # main = Main()
 
@@ -111,5 +107,5 @@ class Main:
 # print(f'Проверено правильно: {main.good}')
 # print(f'Проверено неправильно: {main.bad}')
 # print(datetime.now() - start)
-mark = Mark()
-mark.set_mask_for_borders()
+# mark = Mark()
+# mark.set_mask_for_borders()
