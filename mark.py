@@ -30,27 +30,33 @@ class Mark:
         """
         path = get_last_created_file(path=self._path, file_format=".png")
         path = self._path + "\\" + str(path)[11:-2]
-        # print('path', path)
         image = cv2.imread(path)
-        # print(type(image))
         image = crop_screenshot(image)
         image = np.uint8(image)
-
         return image
 
-    def __parse_scale(self):
+    def parse_json(self):
+        """
+        Получаем данные из json файла
+        :return:
+        """
+        with open("maps.json", "r") as fp:
+            maps = json.load(fp)
+        return maps
+
+    def parse_scale(self):
         """
         Получаем масштаб карты
         :return:
         """
-        return parse_json()[self.__get_map_name()]["map_scale"]
+        return self.parse_json()[self.__get_map_name()]["map_scale"]
 
-    def __parse_pixels(self):
+    def parse_pixels(self):
         """
         Получаем количество пикселей в карте
         :return:
         """
-        return parse_json()[self.__get_map_name()]["pixel_per_side"] + 3
+        return self.parse_json()[self.__get_map_name()]["pixel_per_side"] + 3
 
     def set_masks(self):
         """
@@ -82,9 +88,8 @@ class Mark:
             length_x = abs(yellow_mark[0] - player_mark[0])
             length_y = abs(yellow_mark[1] - player_mark[1])
             result = math.sqrt(length_x ** 2 + length_y ** 2)
-            return int(result * int(self.__parse_scale()) / int(self.__parse_pixels()))
-
-        except Exception:
+            return int(result * int(self.parse_scale()) / int(self.parse_pixels()))
+        except Exception as e:
             return
 
 
@@ -104,16 +109,6 @@ def get_mean_value(mask):
         return int_counters[0][0]
     except IndexError:
         return
-
-
-def parse_json():
-    """
-    Получаем данные из json файла
-    :return:
-    """
-    with open("maps.json", "r") as fp:
-        maps = json.load(fp)
-    return maps
 
 
 def crop_screenshot(image):
@@ -146,5 +141,4 @@ def get_last_created_file(
     dir_list = list(dir_iter)
     for file in sorted(dir_list, key=lambda x: x.stat().st_ctime, reverse=True):
         if file.name.endswith(file_format):
-            # print(file)
             return file
