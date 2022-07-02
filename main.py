@@ -1,6 +1,6 @@
-from random import random
 from time import sleep
-import gc
+import keyboard
+
 from mark import Mark
 from datetime import datetime
 
@@ -34,22 +34,6 @@ class Main:
     #         # print('-' * 20)
     #         self.good += 1
 
-    try:
-        scale = input(
-            "Масштабування мапи?: ")  # Отказался от OCR, для standalone-приложения гемморно и много ресов лишних жрёт
-        square_size = input("Розмір квадрата?: ")
-
-        marker = Mark(map_scale=scale, square_size=square_size)
-        while True:
-            marker.set_masks()  # Создаём маски
-
-            res = marker.calc_distance()  # Считаем дистанцию
-            if res is not None:
-                print('result:', res)
-            sleep(0.1)
-            gc.enable()
-    except KeyboardInterrupt:
-        exit(0)
 
 # main = Main()
 
@@ -108,3 +92,32 @@ class Main:
 # print(datetime.now() - start)
 # mark = Mark()
 # mark.set_mask_for_borders()
+# try:
+#     # scale = input(
+#     #     "Масштабування мапи?: ")  # Отказался от OCR, для standalone-приложения гемморно и много ресов лишних жрёт
+#     # square_size = input("Розмір квадрата?: ")
+#
+#     marker = Mark()
+#     while True:
+#         marker.set_masks()  # Создаём маски
+#
+#         res = marker.calc_distance()  # Считаем дистанцию
+#         if res is not None:
+#             print('result:', res)
+#         sleep(2)
+#         gc.enable()
+# except KeyboardInterrupt:
+#     exit(0)
+
+def main():
+    marker = Mark()
+    marker.set_masks()
+    res = marker.calc_distance()
+    if res is not None:
+        print('result:', res)
+
+while True:
+    if keyboard.is_pressed('f12'):
+        sleep(1.5)
+        main()
+
