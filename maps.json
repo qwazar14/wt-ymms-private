@@ -1,0 +1,410 @@
+{
+  "fulda/fulda_bttl": {
+    "map_scale": 250,
+    "pixel_per_side": 55
+  },
+  "fulda/fulda_02_bttl": {
+    "map_scale": 550,
+    "pixel_per_side": 57
+  },
+  "africa_desert/africa_desert_bttl": {
+    "map_scale": 180,
+    "pixel_per_side": 58
+  },
+  "alps/alps_bttl": {
+    "map_scale": 150,
+    "pixel_per_side": 59
+  },
+  "berlin/berlin_bttl": {
+    "map_scale": 180,
+    "pixel_per_side": 58
+  },
+  "eastern_europe/eastern_europe_bttl": {
+    "map_scale": 225,
+    "pixel_per_side": 55
+  },
+  "eastern_europe_province/european_province_bttl": {
+    "map_scale": 500,
+    "pixel_per_side": 59
+  },
+  "finland/finland_bttl": {
+    "map_scale": 225,
+    "pixel_per_side": 55
+  },
+  "guadalcanal/guadalcanal_bttl": {
+    "map_scale": 225,
+    "pixel_per_side": 58
+  },
+  "hurtgen/hurtgen_bttl": {
+    "map_scale": 225,
+    "pixel_per_side": 55
+  },
+  "ireland/ireland_bttl": {
+    "map_scale": 140,
+    "pixel_per_side": 56
+  },
+  "karelia/karelia_bttl": {
+    "map_scale": 170,
+    "pixel_per_side": 59
+  },
+  "karpaty/karpaty_bttl": {
+    "map_scale": 275,
+    "pixel_per_side": 56
+  },
+  "krymsk/krymsk_bttl": {
+    "map_scale": 225,
+    "pixel_per_side": 56
+  },
+  "kursk_villages/kursk_villages_bttl": {
+    "map_scale": 550,
+    "pixel_per_side": 59
+  },
+  "mozdok/mozdok_bttl": {
+    "map_scale": 275,
+    "pixel_per_side": 57
+  },
+  "normandy_fields/normandy_02_bttl": {
+    "map_scale": 250,
+    "pixel_per_side": 58
+  },
+  "normandy/normandy_bttl": {
+    "map_scale": 300,
+    "pixel_per_side": 59
+  },
+  "poland_fields/poland_02_bttl": {
+    "map_scale": 350,
+    "pixel_per_side": 54
+  },
+  "poland/poland_bttl": {
+    "map_scale": 450,
+    "pixel_per_side": 56
+  },
+  "port_novorossiysk/port_novorossiysk_bttl": {
+    "map_scale": 225,
+    "pixel_per_side": 55
+  },
+  "rheinland/rheinland_bttl": {
+    "map_scale": 150,
+    "pixel_per_side": 59
+  },
+  "stalingrad_factory/stalingrad_factory_bttl": {
+    "map_scale": 250,
+    "pixel_per_side": 55
+  },
+  "tunisia_sands/tunisia_02_bttl": {
+    "map_scale": 225,
+    "pixel_per_side": 56
+  },
+  "tunisia/tunisia_bttl": {
+    "map_scale": 225,
+    "pixel_per_side": 59
+  },
+  "volokolamsk/volokolamsk_bttl": {
+    "map_scale": 250,
+    "pixel_per_side": 54
+  },
+  "volokolamsk_surroundings/volokolamsk_02_bttl": {
+    "map_scale": 450,
+    "pixel_per_side": 56
+  },
+  "sinai/sinai_bttl": {
+    "map_scale": 200,
+    "pixel_per_side": 55
+  },
+  "sinai_sands/sinai_02_bttl": {
+    "map_scale": 350,
+    "pixel_per_side": 59
+  },
+  "korea/korea_bttl": {
+    "map_scale": 200,
+    "pixel_per_side": 57
+  },
+  "abandoned_factory/abandoned_factory_bttl": {
+    "map_scale": 170,
+    "pixel_per_side": 59
+  },
+  "ardennes/ardennes_bttl": {
+    "map_scale": 225,
+    "pixel_per_side": 55
+  },
+  "middle_east/middle_east_bttl": {
+    "map_scale": 180,
+    "pixel_per_side": 57
+  },
+  "sector_montmedy/sector_montmedy_bttl": {
+    "map_scale": 250,
+    "pixel_per_side": 55
+  },
+  "sector_montmedy/sector_montmedy_02_bttl": {
+    "map_scale": 400,
+    "pixel_per_side": 55
+  },
+  "lazzaro_italy_new_city/lazzaro_italy_new_city_bttl": {
+    "map_scale": 325,
+    "pixel_per_side": 56
+  },
+  "american_valley/american_valley_bttl": {
+    "map_scale": 190,
+    "pixel_per_side": 59
+  },
+  "vietnam_hills/vietnam_hills_bttl": {
+    "map_scale": 250,
+    "pixel_per_side": 55
+  },
+  "vietnam_hills/vietnam_hills_02_bttl": {
+    "map_scale": 325,
+    "pixel_per_side": 56
+  },
+  "alaska_town/alaska_town_bttl": {
+    "map_scale": 200,
+    "pixel_per_side": 55
+  },
+  "container_port/container_port_bttl": {
+    "map_scale": 250,
+    "pixel_per_side": 58
+  },
+  "sweden/sweden_bttl": {
+    "map_scale": 200,
+    "pixel_per_side": 55
+  },
+  "soviet_suburban/soviet_suburban_bttl": {
+    "map_scale": 225,
+    "pixel_per_side": 56
+  },
+  "red_desert/red_desert_bttl": {
+    "map_scale": 500,
+    "pixel_per_side": 58
+  },
+  "breslau/breslau_bttl": {
+    "map_scale": 250,
+    "pixel_per_side": 56
+  },
+  "western_europe/western_europe_bttl": {
+    "map_scale": 300,
+    "pixel_per_side": 57
+  },
+  "aral_sea/aral_sea_bttl": {
+    "map_scale": 225,
+    "pixel_per_side": 58
+  },
+  "israel/israel_bttl": {
+    "map_scale": 225,
+    "pixel_per_side": 58
+  },
+  "nuclear_incident/nuclear_incident_bttl": {
+    "map_scale": 200,
+    "pixel_per_side": 55
+  },
+  "abandoned_town/abandoned_town_bttl": {
+    "map_scale": 225,
+    "pixel_per_side": 59
+  },
+  "africa_desert/africa_desert_dom": {
+    "map_scale": 300,
+    "pixel_per_side": 58
+  },
+  "africa_desert/africa_desert_02_dom": {
+    "map_scale": 250,
+    "pixel_per_side": 58
+  },
+  "alps/alps_dom": {
+    "map_scale": 150,
+    "pixel_per_side": 59
+  },
+  "berlin/berlin_dom": {
+    "map_scale": 180,
+    "pixel_per_side": 58
+  },
+  "eastern_europe/eastern_europe_dom": {
+    "map_scale": 225,
+    "pixel_per_side": 55
+  },
+  "eastern_europe_province/european_province_dom": {
+    "map_scale": 450,
+    "pixel_per_side": 57
+  },
+  "finland/finland_dom": {
+    "map_scale": 225,
+    "pixel_per_side": 55
+  },
+  "guadalcanal/guadalcanal_dom": {
+    "map_scale": 225,
+    "pixel_per_side": 58
+  },
+  "hurtgen/hurtgen_dom": {
+    "map_scale": 250,
+    "pixel_per_side": 58
+  },
+  "hurtgen/hurtgen_02_dom": {
+    "map_scale": 275,
+    "pixel_per_side": 57
+  },
+  "ireland/ireland_dom": {
+    "map_scale": 140,
+    "pixel_per_side": 56
+  },
+  "karelia/karelia_dom": {
+    "map_scale": 180,
+    "pixel_per_side": 58
+  },
+  "karpaty/karpaty_dom": {
+    "map_scale": 275,
+    "pixel_per_side": 56
+  },
+  "krymsk/krymsk_dom": {
+    "map_scale": 500,
+    "pixel_per_side": 55
+  },
+  "kursk_villages/kursk_villages_dom": {
+    "map_scale": 225,
+    "pixel_per_side": 59
+  },
+  "mozdok/mozdok_dom": {
+    "map_scale": 200,
+    "pixel_per_side": 59
+  },
+  "mozdok/mozdok_02_dom": {
+    "map_scale": 325,
+    "pixel_per_side": 59
+  },
+  "normandy_fields/normandy_02_dom": {
+    "map_scale": 250,
+    "pixel_per_side": 58
+  },
+  "port_novorossiysk/port_novorossiysk_dom": {
+    "map_scale": 170,
+    "pixel_per_side": 59
+  },
+  "rheinland/rheinland_dom": {
+    "map_scale": 150,
+    "pixel_per_side": 59
+  },
+  "stalingrad_factory/stalingrad_factory_dom": {
+    "map_scale": 250,
+    "pixel_per_side": 55
+  },
+  "tunisia_sands/tunisia_02_dom": {
+    "map_scale": 550,
+    "pixel_per_side": 56
+  },
+  "tunisia/tunisia_dom": {
+    "map_scale": 225,
+    "pixel_per_side": 59
+  },
+  "volokolamsk/volokolamsk_dom": {
+    "map_scale": 200,
+    "pixel_per_side": 59
+  },
+  "volokolamsk_surroundings/volokolamsk_02_dom": {
+    "map_scale": 500,
+    "pixel_per_side": 55
+  },
+  "sinai/sinai_dom": {
+    "map_scale": 200,
+    "pixel_per_side": 55
+  },
+  "sinai_sands/sinai_02_dom": {
+    "map_scale": 350,
+    "pixel_per_side": 59
+  },
+  "korea/korea_dom": {
+    "map_scale": 200,
+    "pixel_per_side": 57
+  },
+  "abandoned_factory/abandoned_factory_dom": {
+    "map_scale": 170,
+    "pixel_per_side": 59
+  },
+  "ardennes/ardennes_dom": {
+    "map_scale": 200,
+    "pixel_per_side": 59
+  },
+  "ardennes/ardennes_02_dom": {
+    "map_scale": 350,
+    "pixel_per_side": 56
+  },
+  "japan/japan_dom": {
+    "map_scale": 225,
+    "pixel_per_side": 58
+  },
+  "fulda/fulda_dom": {
+    "map_scale": 250,
+    "pixel_per_side": 55
+  },
+  "fulda/fulda_02_dom": {
+    "map_scale": 550,
+    "pixel_per_side": 57
+  },
+  "middle_east/middle_east_dom": {
+    "map_scale": 180,
+    "pixel_per_side": 57
+  },
+  "sector_montmedy/sector_montmedy_dom": {
+    "map_scale": 250,
+    "pixel_per_side": 55
+  },
+  "sector_montmedy/sector_montmedy_02_dom": {
+    "map_scale": 400,
+    "pixel_per_side": 55
+  },
+  "lazzaro_italy_new_city/lazzaro_italy_new_city_dom": {
+    "map_scale": 325,
+    "pixel_per_side": 56
+  },
+  "american_valley/american_valley_dom": {
+    "map_scale": 190,
+    "pixel_per_side": 58
+  },
+  "vietnam_hills/vietnam_hills_dom": {
+    "map_scale": 250,
+    "pixel_per_side": 55
+  },
+  "vietnam_hills/vietnam_hills_02_dom": {
+    "map_scale": 325,
+    "pixel_per_side": 56
+  },
+  "alaska_town/alaska_town_dom": {
+    "map_scale": 200,
+    "pixel_per_side": 55
+  },
+  "container_port/container_port_dom": {
+    "map_scale": 250,
+    "pixel_per_side": 56
+  },
+  "sweden/sweden_dom": {
+    "map_scale": 200,
+    "pixel_per_side": 55
+  },
+  "soviet_suburban/soviet_suburban_dom": {
+    "map_scale": 225,
+    "pixel_per_side": 57
+  },
+  "red_desert/red_desert_dom": {
+    "map_scale": 500,
+    "pixel_per_side": 58
+  },
+  "breslau/breslau_dom": {
+    "map_scale": 250,
+    "pixel_per_side": 56
+  },
+  "western_europe/western_europe_dom": {
+    "map_scale": 300,
+    "pixel_per_side": 57
+  },
+  "aral_sea/aral_sea_dom": {
+    "map_scale": 225,
+    "pixel_per_side": 58
+  },
+  "israel/israel_dom": {
+    "map_scale": 225,
+    "pixel_per_side": 58
+  },
+  "nuclear_incident/nuclear_incident_dom": {
+    "map_scale": 200,
+    "pixel_per_side": 55
+  },
+  "abandoned_town/abandoned_town_dom": {
+    "map_scale": 225,
+    "pixel_per_side": 58
+  }
+}
