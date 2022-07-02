@@ -2,24 +2,13 @@ from time import sleep
 import keyboard
 
 from mark import Mark
-from datetime import datetime
-
-start = datetime.now()
-
-
-class Main:
-    def __init__(self):
-        self.good = 0
-        self.bad = 0
-
-    def run(self, map_number, scale):
-        mark = Mark(map_number=map_number)  # Создаем объект маркировки
-        mark.set_masks()  # Получаем координаты меток
-        res = mark.calc_distance(scale)  # Получаем расстояние между метками игрока и желтой меткой
-        return map_number, res  # Возвращаем номер карты и расстояние
 
 
 def main():
+    """
+    Основная функция
+    :return:
+    """
     marker = Mark()
     marker.set_masks()
     res = marker.calc_distance()
