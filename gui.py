@@ -8,7 +8,9 @@ from PyQt5.QtWidgets import *
 from PyQt5.QtWidgets import QFileDialog
 from pynput.keyboard import Listener
 
+import connect_telegram
 import main
+from connect_telegram import tg_send_message
 
 
 def save_data_to_config(key, value):
@@ -107,7 +109,7 @@ class Ui_MainWindow(QWidget):
         self.progressBar = QtWidgets.QProgressBar(self.frame_2)
         self.pushButton_pathToDir = QtWidgets.QPushButton(self.centralwidget)
         self.pushButton_connectTG = QtWidgets.QPushButton(self.centralwidget)
-        # self.pushButton_startStop = QtWidgets.QPushButton(self.centralwidget)
+        # self.pushButton_done = QtWidgets.QPushButton(self.centralwidget)
         self.pushButton_clearDic = QtWidgets.QPushButton(self.centralwidget)
         self.pushButton_chooseButton = QtWidgets.QPushButton(self.centralwidget)
         self.textEdit_selected_button = QtWidgets.QTextEdit(self.centralwidget)
@@ -181,13 +183,13 @@ class Ui_MainWindow(QWidget):
 
         self.pushButton_connectTG.setGeometry(QtCore.QRect(20, 150, 200, 70))
         self.pushButton_connectTG.setSizePolicy(sizePolicy)
-        self.pushButton_connectTG.setStyleSheet(self.button_css_unenable)
+        self.pushButton_connectTG.setStyleSheet(self.button_css_default)
         self.pushButton_connectTG.setObjectName("pushButton_connectTG")
-        self.pushButton_connectTG.setEnabled(False)
-        # self.pushButton_startStop.setGeometry(QtCore.QRect(20, 130, 421, 70))
-        # self.pushButton_startStop.setSizePolicy(sizePolicy)
-        # self.pushButton_startStop.setStyleSheet(self.button_css_default)
-        # self.pushButton_startStop.setObjectName("pushButton_startStop")
+        # self.pushButton_connectTG.setEnabled(False)
+        # self.pushButton_done.setGeometry(QtCore.QRect(20, 130, 421, 70))
+        # self.pushButton_done.setSizePolicy(sizePolicy)
+        # self.pushButton_done.setStyleSheet(self.button_css_default)
+        # self.pushButton_done.setObjectName("pushButton_done")
 
         self.pushButton_clearDic.setGeometry(QtCore.QRect(20, 240, 200, 70))
         self.pushButton_clearDic.setSizePolicy(sizePolicy)
@@ -231,7 +233,7 @@ class Ui_MainWindow(QWidget):
         main_window.setWindowTitle(_translate("WT-YMMS", "WT-YMMS"))
         self.pushButton_pathToDir.setText(_translate("WT-YMMS", "Путь к папке"))
         self.pushButton_connectTG.setText(_translate("WT-YMMS", "Вывод в ТГ"))
-        # self.pushButton_startStop.setText(_translate("WT-YMMS", "Старт"))
+        # self.pushButton_done.setText(_translate("WT-YMMS", "Старт"))
         self.pushButton_clearDic.setText(_translate("WT-YMMS", "Очистить папку"))
         self.pushButton_chooseButton.setText(_translate("WT-YMMS", "Настроить кнопку"))
         try:
@@ -248,9 +250,23 @@ class Ui_MainWindow(QWidget):
         Добавляет функции к кнопкам
         :return:
         """
-        # self.pushButton_startStop.clicked.connect(lambda: self.start_app())
+        # self.pushButton_done.clicked.connect(lambda: self.start_app())
         self.pushButton_pathToDir.clicked.connect(lambda: self.openFileNameDialog())
         self.pushButton_chooseButton.clicked.connect(lambda: self.choose_button())
+        self.pushButton_connectTG.clicked.connect(lambda: self.connect_tg())
+
+    def open_window(self):
+        """
+        Открывает окно приложения
+        :return:
+        """
+        self.tg_code_window = QtWidgets.QMainWindow()
+        self.tg_code_window_ui = connect_telegram.Ui_SecondWindow()
+        self.tg_code_window_ui.setupUi(self.tg_code_window)
+        self.tg_code_window.show()
+
+    def connect_tg(self):
+        self.open_window()
 
     # def start_app(self):
     #     self.enableButtons(self.is_on)
@@ -264,14 +280,15 @@ class Ui_MainWindow(QWidget):
     #             self.is_on = False
     #
     #     except:
-    #         self.pushButton_startStop.setEnabled(False)
-    #         self.pushButton_startStop.setStyleSheet(self.button_css_unenable)
+    #         self.pushButton_done.setEnabled(False)
+    #         self.pushButton_done.setStyleSheet(self.button_css_unenable)
     #         self.enableButtons(True)
-    #         self.pushButton_startStop.setText("Неверный путь к папке")
+    #         self.pushButton_done.setText("Неверный путь к папке")
 
     def onPosEvent(self):
-        res = main.main()
-        self.textEdit_distance.setText(str(res))
+        res = str(main.main())
+        self.textEdit_distance.setText(res)
+        tg_send_message(res)
 
     def openFileNameDialog(self):
         """
@@ -288,9 +305,9 @@ class Ui_MainWindow(QWidget):
         if path:
             self.path = path
             save_data_to_config("game_path", path)
-            # self.pushButton_startStop.setEnabled(True)
-            # self.pushButton_startStop.setStyleSheet(self.button_css_default)
-            # self.pushButton_startStop.setText("Старт")
+            # self.pushButton_done.setEnabled(True)
+            # self.pushButton_done.setStyleSheet(self.button_css_default)
+            # self.pushButton_done.setText("Старт")
 
     def choose_button(self):
         def on_press(key):
@@ -309,14 +326,14 @@ class Ui_MainWindow(QWidget):
         self.pushButton_connectTG.setEnabled(param)
         self.pushButton_clearDic.setEnabled(param)
         if param:
-            # self.pushButton_startStop.setText("Старт")
+            # self.pushButton_done.setText("Старт")
             self.pushButton_chooseButton.setStyleSheet(self.button_css_default)
             self.pushButton_pathToDir.setStyleSheet(self.button_css_default)
             self.pushButton_connectTG.setStyleSheet(self.button_css_default)
             self.pushButton_clearDic.setStyleSheet(self.button_css_default)
         else:
             self.textEdit_distance.setText("")
-            # self.pushButton_startStop.setText("Стоп")
+            # self.pushButton_done.setText("Стоп")
             self.pushButton_chooseButton.setStyleSheet(self.button_css_unenable)
             self.pushButton_pathToDir.setStyleSheet(self.button_css_unenable)
             self.pushButton_connectTG.setStyleSheet(self.button_css_unenable)

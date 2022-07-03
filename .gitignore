@@ -3,3 +3,4 @@ temp.png
 *.xml
 *.iml
 /.idea/
+/output/
