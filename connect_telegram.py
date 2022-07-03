@@ -10,7 +10,7 @@ from gui import save_data_to_config, get_data_from_config
 def get_tg_chat_id(message: str, offset: int = -1) -> str or None:
     """
     Возвращает идентификатор чата для конкретного сообщения в Telegram API
-    :param message: Тескт сообщения для проверки
+    :param message: Текст сообщения для проверки
     :param offset: Смещение для Telegram API
     :return: Идентификатор чата или None
     """
@@ -30,12 +30,12 @@ def tg_send_message(bot_message):
         bot_token = "5593316012:AAGqn46oO9QzrjewKERtcjO9KA1UT-ewa0k"
         bot_chatID = get_data_from_config("bot_chatID")
         send_text = (
-            "https://api.telegram.org/bot"
-            + bot_token
-            + "/sendMessage?chat_id="
-            + bot_chatID
-            + "&parse_mode=Markdown&text="
-            + bot_message
+                "https://api.telegram.org/bot"
+                + bot_token
+                + "/sendMessage?chat_id="
+                + bot_chatID
+                + "&parse_mode=Markdown&text="
+                + bot_message
         )
 
         response = requests.get(send_text)
@@ -50,21 +50,21 @@ class Ui_SecondWindow(QDialog):
         super().__init__()
         self.uuid = uuid.uuid4().hex
 
-    def setupUi(self, MainWindow):
-        MainWindow.setObjectName("MainWindow")
-        MainWindow.resize(460, 200)
+    def setupUi(self, SecondWindow):
+        SecondWindow.setObjectName("SecondWindow")
+        SecondWindow.resize(460, 200)
 
         sizePolicy = QtWidgets.QSizePolicy(
             QtWidgets.QSizePolicy.Fixed, QtWidgets.QSizePolicy.Fixed
         )
         sizePolicy.setHorizontalStretch(0)
         sizePolicy.setVerticalStretch(0)
-        sizePolicy.setHeightForWidth(MainWindow.sizePolicy().hasHeightForWidth())
+        sizePolicy.setHeightForWidth(SecondWindow.sizePolicy().hasHeightForWidth())
 
-        MainWindow.setSizePolicy(sizePolicy)
-        MainWindow.setMinimumSize(QtCore.QSize(0, 0))
-        MainWindow.setMaximumSize(QtCore.QSize(460, 200))
-        MainWindow.setSizeIncrement(QtCore.QSize(0, 0))
+        SecondWindow.setSizePolicy(sizePolicy)
+        SecondWindow.setMinimumSize(QtCore.QSize(0, 0))
+        SecondWindow.setMaximumSize(QtCore.QSize(460, 200))
+        SecondWindow.setSizeIncrement(QtCore.QSize(0, 0))
 
         font = QtGui.QFont()
         font.setFamily("Levenim MT")
@@ -74,16 +74,16 @@ class Ui_SecondWindow(QDialog):
         font.setWeight(50)
         font.setKerning(False)
 
-        MainWindow.setFont(font)
-        MainWindow.setMouseTracking(True)
-        MainWindow.setStyleSheet(
+        SecondWindow.setFont(font)
+        SecondWindow.setMouseTracking(True)
+        SecondWindow.setStyleSheet(
             "background-color: rgb(54, 57, 63);\n"
             'font: 8pt "Levenim MT";\n'
             "color: rgb(255, 255, 255);"
         )
-        MainWindow.setTabShape(QtWidgets.QTabWidget.Rounded)
+        SecondWindow.setTabShape(QtWidgets.QTabWidget.Rounded)
 
-        self.centralwidget = QtWidgets.QWidget(MainWindow)
+        self.centralwidget = QtWidgets.QWidget(SecondWindow)
         self.centralwidget.setEnabled(True)
         self.centralwidget.setSizePolicy(sizePolicy)
         self.centralwidget.setMinimumSize(QtCore.QSize(460, 0))
@@ -121,19 +121,20 @@ class Ui_SecondWindow(QDialog):
         self.textEdit_uuid.setGeometry(QtCore.QRect(20, 30, 421, 64))
         self.textEdit_uuid.setObjectName("textEdit_uuid")
         self.textEdit_uuid.setReadOnly(True)
+        self.textEdit_uuid.setFont(font)
         self.textEdit_uuid.setText(self.uuid)
 
-        MainWindow.setCentralWidget(self.centralwidget)
-        self.retranslateUi(MainWindow)
+        SecondWindow.setCentralWidget(self.centralwidget)
+        self.retranslateUi(SecondWindow)
 
-        QtCore.QMetaObject.connectSlotsByName(MainWindow)
+        QtCore.QMetaObject.connectSlotsByName(SecondWindow)
 
     def retranslateUi(self, MainWindow):
         _translate = QtCore.QCoreApplication.translate
         MainWindow.setWindowTitle(
-            _translate("MainWindow", "Подключение вывода в Телеграм")
+            _translate("SecondWindow", "Подключение вывода в Телеграм")
         )
-        self.pushButton_done.setText(_translate("MainWindow", "Подключить"))
+        self.pushButton_done.setText(_translate("SecondWindow", "Подключить"))
         self.add_functions()
 
     def add_functions(self):

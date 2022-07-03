@@ -15,4 +15,3 @@ def main():
     if res is not None:
         print("result:", res)
         return res
-

@@ -22,6 +22,7 @@ def get_game_path_from_config():
 
     return path
 
+
 def resource_path(relative_path):
     """
     Получаем путь к ресурсам
@@ -29,9 +30,7 @@ def resource_path(relative_path):
     :return: Путь к ресурсам
     """
     base_path = getattr(sys, '_MEIPASS', os.path.dirname(os.path.abspath(__file__)))
-    print(os.path.join(base_path, relative_path))
     return os.path.join(base_path, relative_path)
-
 
 
 class Mark:
@@ -40,9 +39,7 @@ class Mark:
     ):
         self._yellow_mark_coordinates = yellow_mark_coordinates
         self._player_mark_coordinates = player_mark_coordinates
-        # self._path = get_game_path_from_config()
         self._path = resource_path(get_game_path_from_config())
-        # self._path = 'D:/Steam/steamapps/common/War Thunder/Screenshots'
 
     def __get_map_name(self):
         """
@@ -51,7 +48,6 @@ class Mark:
         """
         path = get_last_created_file(path=self._path, file_format=".blk")
         with open(path, "r") as fp:
-            # read line 8
             name = fp.readlines()[34]
             return name[45:-6]
 
@@ -112,8 +108,6 @@ class Mark:
         mask_player = cv2.inRange(hsv, lower_player, upper_player)
         self._yellow_mark_coordinates = get_mean_value(mask_yellow)
         self._player_mark_coordinates = get_mean_value(mask_player)
-        print(self._yellow_mark_coordinates)
-        print(self._player_mark_coordinates)
 
     def calc_distance(self):
         """
@@ -176,9 +170,11 @@ def get_last_created_file(
     :param file_format: File format (default - '.png')
     :return: Last created file in directory or None
     """
-
-    dir_iter = os.scandir(path)
-    dir_list = list(dir_iter)
-    for file in sorted(dir_list, key=lambda x: x.stat().st_ctime, reverse=True):
-        if file.name.endswith(file_format):
-            return file
+    try:
+        dir_iter = os.scandir(path)
+        dir_list = list(dir_iter)
+        for file in sorted(dir_list, key=lambda x: x.stat().st_ctime, reverse=True):
+            if file.name.endswith(file_format):
+                return file
+    except:
+        pass
