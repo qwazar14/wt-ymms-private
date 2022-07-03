@@ -1,16 +1,26 @@
 import json
 import math
 import os
+import configparser
 
 import cv2
 import numpy as np
 
 
+def get_game_path_from_config():
+    """Возвращает путь к игре из конфига"""
+    config = configparser.ConfigParser()
+    config.read('config.ini')
+    path = config['DEFAULT']['game_path']
+    path.replace('/', '\\')
+    path = path + '\Screenshots'
+    return path
+
 class Mark:
     def __init__(self, yellow_mark_coordinates: int = 0, player_mark_coordinates: int = 0):
         self._yellow_mark_coordinates = yellow_mark_coordinates
         self._player_mark_coordinates = player_mark_coordinates
-        self._path = "D:\Steam\steamapps\common\War Thunder\Screenshots"
+        self._path = get_game_path_from_config()
 
     def __get_map_name(self):
         """
