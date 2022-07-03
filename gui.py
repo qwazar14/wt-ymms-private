@@ -7,7 +7,6 @@ from PyQt5.QtCore import pyqtSignal as Signal
 from PyQt5.QtWidgets import *
 from PyQt5.QtWidgets import QFileDialog
 from pynput.keyboard import Listener
-from transliterate import translit
 
 import main
 
@@ -38,13 +37,11 @@ def get_data_from_config(key):
     return data
 
 
-
 class MyGetPosThread(QThread):
     positionSign = Signal(object)
 
     def __init__(self, parent):
         QThread.__init__(self, parent)
-
 
     def addPositionEventListener(self, listener):
         self.positionSign.connect(listener)
@@ -54,15 +51,16 @@ class MyGetPosThread(QThread):
             a = str(key)
         except AttributeError:
             a = str(key)
-        if a == get_data_from_config('button'): self.m_pressed = True
-        if a != get_data_from_config('button'): self.m_pressed = False
+        if a == get_data_from_config("button"):
+            self.m_pressed = True
+        if a != get_data_from_config("button"):
+            self.m_pressed = False
 
         try:
             if self.m_pressed == True:
                 self.positionSign.emit(pyautogui.position())
         except:
             pass
-
 
     def run(self):
 
@@ -115,8 +113,10 @@ class Ui_MainWindow(QWidget):
         self.textEdit_selected_button = QtWidgets.QTextEdit(self.centralwidget)
         self.textEdit_license_date = QtWidgets.QTextEdit(self.centralwidget)
         self.textEdit_distance = QtWidgets.QTextEdit(self.centralwidget)
-        self.textEdit_css = ("QTextEdit{ border-radius: 5px; border:0px;background-color: rgba(255, 255, 255, 0);\n"
-                             'font: 87 26pt "Arial";}')
+        self.textEdit_css = (
+            "QTextEdit{ border-radius: 5px; border:0px;background-color: rgba(255, 255, 255, 0);\n"
+            'font: 87 26pt "Arial";}'
+        )
         self.path = ""
 
         self._get_pos_thread = MyGetPosThread(self)
@@ -251,7 +251,6 @@ class Ui_MainWindow(QWidget):
         # self.pushButton_startStop.clicked.connect(lambda: self.start_app())
         self.pushButton_pathToDir.clicked.connect(lambda: self.openFileNameDialog())
         self.pushButton_chooseButton.clicked.connect(lambda: self.choose_button())
-
 
     # def start_app(self):
     #     self.enableButtons(self.is_on)
