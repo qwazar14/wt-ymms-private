@@ -32,7 +32,7 @@ def get_tg_chat_id(message: str, offset: int = -1) -> str or None:
 def tg_send_message(bot_message):
     bot_token = "5593316012:AAGqn46oO9QzrjewKERtcjO9KA1UT-ewa0k"
     # bot_chatID = config.TG_CHAT_ID
-    bot_chatID = str(347228233)
+    bot_chatID = ЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫ
     send_text = (
             "https://api.telegram.org/bot"
             + bot_token
