@@ -1,14 +1,10 @@
-import cmd
-import sys
-from time import sleep
-
-from PyQt5 import QtCore, QtGui, QtWidgets
-
-import requests
 import uuid
 
-from PyQt5.QtCore import QCoreApplication
-from PyQt5.QtWidgets import QWidget, QApplication, QDialog
+import requests
+from PyQt5 import QtCore, QtGui, QtWidgets
+from PyQt5.QtWidgets import QDialog
+
+from gui import save_data_to_config, get_data_from_config
 
 
 def get_tg_chat_id(message: str, offset: int = -1) -> str or None:
@@ -30,42 +26,46 @@ def get_tg_chat_id(message: str, offset: int = -1) -> str or None:
 
 
 def tg_send_message(bot_message):
-    bot_token = "5593316012:AAGqn46oO9QzrjewKERtcjO9KA1UT-ewa0k"
-    # bot_chatID = config.TG_CHAT_ID
-    bot_chatID = ЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫ
-    send_text = (
+    try:
+        bot_token = "5593316012:AAGqn46oO9QzrjewKERtcjO9KA1UT-ewa0k"
+        bot_chatID = get_data_from_config("bot_chatID")
+        send_text = (
             "https://api.telegram.org/bot"
             + bot_token
             + "/sendMessage?chat_id="
             + bot_chatID
             + "&parse_mode=Markdown&text="
             + bot_message
-    )
+        )
 
-    response = requests.get(send_text)
+        response = requests.get(send_text)
 
-    return response.json()
+        return response.json()
+    except:
+        pass
 
 
 class Ui_SecondWindow(QDialog):
     def __init__(self):
         super().__init__()
         self.uuid = uuid.uuid4().hex
-        # self.addAction(self.exit)
 
     def setupUi(self, MainWindow):
         MainWindow.setObjectName("MainWindow")
         MainWindow.resize(460, 200)
+
         sizePolicy = QtWidgets.QSizePolicy(
             QtWidgets.QSizePolicy.Fixed, QtWidgets.QSizePolicy.Fixed
         )
         sizePolicy.setHorizontalStretch(0)
         sizePolicy.setVerticalStretch(0)
         sizePolicy.setHeightForWidth(MainWindow.sizePolicy().hasHeightForWidth())
+
         MainWindow.setSizePolicy(sizePolicy)
         MainWindow.setMinimumSize(QtCore.QSize(0, 0))
         MainWindow.setMaximumSize(QtCore.QSize(460, 200))
         MainWindow.setSizeIncrement(QtCore.QSize(0, 0))
+
         font = QtGui.QFont()
         font.setFamily("Levenim MT")
         font.setPointSize(8)
@@ -73,6 +73,7 @@ class Ui_SecondWindow(QDialog):
         font.setItalic(False)
         font.setWeight(50)
         font.setKerning(False)
+
         MainWindow.setFont(font)
         MainWindow.setMouseTracking(True)
         MainWindow.setStyleSheet(
@@ -81,41 +82,16 @@ class Ui_SecondWindow(QDialog):
             "color: rgb(255, 255, 255);"
         )
         MainWindow.setTabShape(QtWidgets.QTabWidget.Rounded)
+
         self.centralwidget = QtWidgets.QWidget(MainWindow)
         self.centralwidget.setEnabled(True)
-        sizePolicy = QtWidgets.QSizePolicy(
-            QtWidgets.QSizePolicy.Fixed, QtWidgets.QSizePolicy.Fixed
-        )
-        sizePolicy.setHorizontalStretch(6)
-        sizePolicy.setVerticalStretch(6)
-        sizePolicy.setHeightForWidth(
-            self.centralwidget.sizePolicy().hasHeightForWidth()
-        )
         self.centralwidget.setSizePolicy(sizePolicy)
         self.centralwidget.setMinimumSize(QtCore.QSize(460, 0))
         self.centralwidget.setMaximumSize(QtCore.QSize(9999, 9999))
         self.centralwidget.setObjectName("centralwidget")
-        self.frame_2 = QtWidgets.QFrame(self.centralwidget)
-        self.frame_2.setGeometry(QtCore.QRect(100, 549, 701, 51))
-        self.frame_2.setStyleSheet("background-color: rgb(32, 34, 37);")
-        self.frame_2.setFrameShape(QtWidgets.QFrame.StyledPanel)
-        self.frame_2.setFrameShadow(QtWidgets.QFrame.Raised)
-        self.frame_2.setObjectName("frame_2")
-        self.progressBar = QtWidgets.QProgressBar(self.frame_2)
-        self.progressBar.setGeometry(QtCore.QRect(10, 10, 681, 33))
-        self.progressBar.setStyleSheet('font: 12pt "Levenim MT";\n' "")
-        self.progressBar.setProperty("value", 24)
-        self.progressBar.setObjectName("progressBar")
+
         self.pushButton_done = QtWidgets.QPushButton(self.centralwidget)
         self.pushButton_done.setGeometry(QtCore.QRect(20, 120, 421, 70))
-        sizePolicy = QtWidgets.QSizePolicy(
-            QtWidgets.QSizePolicy.Preferred, QtWidgets.QSizePolicy.Preferred
-        )
-        sizePolicy.setHorizontalStretch(0)
-        sizePolicy.setVerticalStretch(0)
-        sizePolicy.setHeightForWidth(
-            self.pushButton_done.sizePolicy().hasHeightForWidth()
-        )
         self.pushButton_done.setSizePolicy(sizePolicy)
         self.pushButton_done.setStyleSheet(
             "QPushButton\n"
@@ -140,36 +116,34 @@ class Ui_SecondWindow(QDialog):
             "                                                 border-radius: 30px}"
         )
         self.pushButton_done.setObjectName("pushButton_done")
-        # self.pushButton_done.clicked.connect(QCoreApplication.instance().quit)
-        # self.pushButton_done.clicked.connect(QtWidgets.qApp.quit)
 
         self.textEdit_uuid = QtWidgets.QTextEdit(self.centralwidget)
         self.textEdit_uuid.setGeometry(QtCore.QRect(20, 30, 421, 64))
         self.textEdit_uuid.setObjectName("textEdit_uuid")
         self.textEdit_uuid.setReadOnly(True)
         self.textEdit_uuid.setText(self.uuid)
-        MainWindow.setCentralWidget(self.centralwidget)
 
+        MainWindow.setCentralWidget(self.centralwidget)
         self.retranslateUi(MainWindow)
+
         QtCore.QMetaObject.connectSlotsByName(MainWindow)
 
     def retranslateUi(self, MainWindow):
         _translate = QtCore.QCoreApplication.translate
-        MainWindow.setWindowTitle(_translate("MainWindow", "MainWindow"))
+        MainWindow.setWindowTitle(
+            _translate("MainWindow", "Подключение вывода в Телеграм")
+        )
         self.pushButton_done.setText(_translate("MainWindow", "Подключить"))
         self.add_functions()
 
     def add_functions(self):
         self.pushButton_done.clicked.connect(lambda: self.connect_telegram())
-        # self.pushButton_done.clicked.connect(QCoreApplication.instance().quit)
-
-        # self.pushButton_done.clicked.connect(QtWidgets.qApp.quit)
 
     def connect_telegram(self):
-        bot_id = get_tg_chat_id(self.uuid)
-        if bot_id is not None:
+        bot_chatID = get_tg_chat_id(self.uuid)
+        if bot_chatID is not None:
             self.pushButton_done.setEnabled(False)
             self.pushButton_done.setText("готово")
+            save_data_to_config("bot_chatID", str(bot_chatID))
         else:
             self.pushButton_done.setText("Попробуйте ещё раз...")
-
