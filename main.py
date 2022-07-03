@@ -14,15 +14,16 @@ def main():
     res = marker.calc_distance()
     if res is not None:
         print('result:', res)
+        return res
 
 
-print('Start')
-while True:
-    if keyboard.is_pressed('f12'):
-        sleep(1.5)
-        try:
-            main()
-        except Exception as e:
-            print(e)
-            sleep(0.5)
-            main()
+# print('Start')
+# while True:
+#     if keyboard.is_pressed('f12'):
+#         sleep(1.5)
+#         try:
+#             main()
+#         except Exception as e:
+#             print(e)
+#             sleep(0.5)
+#             main()
