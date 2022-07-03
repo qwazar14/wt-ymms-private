@@ -1,4 +1,6 @@
 import configparser
+import os
+import shutil
 
 import pyautogui
 from PyQt5 import QtCore, QtGui, QtWidgets
@@ -10,7 +12,7 @@ from pynput.keyboard import Listener
 
 import connect_telegram
 import main
-from connect_telegram import tg_send_message
+from mark import get_game_path_from_config
 
 
 def save_data_to_config(key, value):
@@ -119,7 +121,7 @@ class Ui_MainWindow(QWidget):
             "QTextEdit{ border-radius: 5px; border:0px;background-color: rgba(255, 255, 255, 0);\n"
             'font: 87 26pt "Arial";}'
         )
-        self.path = ""
+        self.path = get_game_path_from_config()
 
         self._get_pos_thread = MyGetPosThread(self)
         self._get_pos_thread.addPositionEventListener(self.onPosEvent)
@@ -254,6 +256,7 @@ class Ui_MainWindow(QWidget):
         self.pushButton_pathToDir.clicked.connect(lambda: self.openFileNameDialog())
         self.pushButton_chooseButton.clicked.connect(lambda: self.choose_button())
         self.pushButton_connectTG.clicked.connect(lambda: self.connect_tg())
+        self.pushButton_clearDic.clicked.connect(lambda: self.clear_dic())
 
     def open_window(self):
         """
@@ -268,27 +271,13 @@ class Ui_MainWindow(QWidget):
     def connect_tg(self):
         self.open_window()
 
-    # def start_app(self):
-    #     self.enableButtons(self.is_on)
-    #     try:
-    #         self.enableButtons(self.is_on)
-    #         if not self.is_on:
-    #             res = main.main()
-    #             self.textEdit_distance.setText(str(res))
-    #             self.is_on = True
-    #         else:
-    #             self.is_on = False
-    #
-    #     except:
-    #         self.pushButton_done.setEnabled(False)
-    #         self.pushButton_done.setStyleSheet(self.button_css_unenable)
-    #         self.enableButtons(True)
-    #         self.pushButton_done.setText("Неверный путь к папке")
-
     def onPosEvent(self):
         res = str(main.main())
         self.textEdit_distance.setText(res)
-        tg_send_message(res)
+        try:
+            connect_telegram.tg_send_message(res)
+        except:
+            pass
 
     def openFileNameDialog(self):
         """
@@ -338,6 +327,17 @@ class Ui_MainWindow(QWidget):
             self.pushButton_pathToDir.setStyleSheet(self.button_css_unenable)
             self.pushButton_connectTG.setStyleSheet(self.button_css_unenable)
             self.pushButton_clearDic.setStyleSheet(self.button_css_unenable)
+
+    def clear_dic(self):
+        """
+        Очищает папку от всех файлов
+        :return:
+        """
+        try:
+            shutil.rmtree(self.path)
+            os.mkdir(self.path)
+        except:
+            pass
 
 
 if __name__ == "__main__":
