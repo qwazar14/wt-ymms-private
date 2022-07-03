@@ -1,6 +1,5 @@
 import configparser
 import os
-import shutil
 
 import pyautogui
 from PyQt5 import QtCore, QtGui, QtWidgets
@@ -111,7 +110,6 @@ class Ui_MainWindow(QWidget):
         self.progressBar = QtWidgets.QProgressBar(self.frame_2)
         self.pushButton_pathToDir = QtWidgets.QPushButton(self.centralwidget)
         self.pushButton_connectTG = QtWidgets.QPushButton(self.centralwidget)
-        # self.pushButton_done = QtWidgets.QPushButton(self.centralwidget)
         self.pushButton_clearDic = QtWidgets.QPushButton(self.centralwidget)
         self.pushButton_chooseButton = QtWidgets.QPushButton(self.centralwidget)
         self.textEdit_selected_button = QtWidgets.QTextEdit(self.centralwidget)
@@ -149,7 +147,7 @@ class Ui_MainWindow(QWidget):
         main_window.setSizeIncrement(QtCore.QSize(0, 0))
 
         font = QtGui.QFont()
-        font.setFamily("Levenim MT")
+        font.setFamily("Verdana")
         font.setPointSize(8)
         font.setBold(False)
         font.setItalic(False)
@@ -195,9 +193,8 @@ class Ui_MainWindow(QWidget):
 
         self.pushButton_clearDic.setGeometry(QtCore.QRect(20, 240, 200, 70))
         self.pushButton_clearDic.setSizePolicy(sizePolicy)
-        self.pushButton_clearDic.setStyleSheet(self.button_css_unenable)
+        self.pushButton_clearDic.setStyleSheet(self.button_css_default)
         self.pushButton_clearDic.setObjectName("pushButton_clearDic")
-        self.pushButton_clearDic.setEnabled(False)
 
         self.pushButton_chooseButton.setGeometry(QtCore.QRect(240, 240, 200, 70))
         self.pushButton_chooseButton.setSizePolicy(sizePolicy)
@@ -252,32 +249,10 @@ class Ui_MainWindow(QWidget):
         Добавляет функции к кнопкам
         :return:
         """
-        # self.pushButton_done.clicked.connect(lambda: self.start_app())
         self.pushButton_pathToDir.clicked.connect(lambda: self.openFileNameDialog())
         self.pushButton_chooseButton.clicked.connect(lambda: self.choose_button())
         self.pushButton_connectTG.clicked.connect(lambda: self.connect_tg())
         self.pushButton_clearDic.clicked.connect(lambda: self.clear_dic())
-
-    def open_window(self):
-        """
-        Открывает окно приложения
-        :return:
-        """
-        self.tg_code_window = QtWidgets.QMainWindow()
-        self.tg_code_window_ui = connect_telegram.Ui_SecondWindow()
-        self.tg_code_window_ui.setupUi(self.tg_code_window)
-        self.tg_code_window.show()
-
-    def connect_tg(self):
-        self.open_window()
-
-    def onPosEvent(self):
-        res = str(main.main())
-        self.textEdit_distance.setText(res)
-        try:
-            connect_telegram.tg_send_message(res)
-        except:
-            pass
 
     def openFileNameDialog(self):
         """
@@ -309,35 +284,35 @@ class Ui_MainWindow(QWidget):
         self.textEdit_selected_button.setText(get_data_from_config("button"))
         self.textEdit_selected_button.setAlignment(QtCore.Qt.AlignCenter)
 
-    def enableButtons(self, param):
-        self.pushButton_chooseButton.setEnabled(param)
-        self.pushButton_pathToDir.setEnabled(param)
-        self.pushButton_connectTG.setEnabled(param)
-        self.pushButton_clearDic.setEnabled(param)
-        if param:
-            # self.pushButton_done.setText("Старт")
-            self.pushButton_chooseButton.setStyleSheet(self.button_css_default)
-            self.pushButton_pathToDir.setStyleSheet(self.button_css_default)
-            self.pushButton_connectTG.setStyleSheet(self.button_css_default)
-            self.pushButton_clearDic.setStyleSheet(self.button_css_default)
-        else:
-            self.textEdit_distance.setText("")
-            # self.pushButton_done.setText("Стоп")
-            self.pushButton_chooseButton.setStyleSheet(self.button_css_unenable)
-            self.pushButton_pathToDir.setStyleSheet(self.button_css_unenable)
-            self.pushButton_connectTG.setStyleSheet(self.button_css_unenable)
-            self.pushButton_clearDic.setStyleSheet(self.button_css_unenable)
+    def open_window(self):
+        """
+        Открывает окно приложения
+        :return:
+        """
+        self.tg_code_window = QtWidgets.QMainWindow()
+        self.tg_code_window_ui = connect_telegram.Ui_SecondWindow()
+        self.tg_code_window_ui.setupUi(self.tg_code_window)
+        self.tg_code_window.show()
+
+    def connect_tg(self):
+        self.open_window()
+
+    def onPosEvent(self):
+        res = str(main.main())
+        self.textEdit_distance.setText(res)
+        try:
+            connect_telegram.tg_send_message(res)
+        except:
+            pass
 
     def clear_dic(self):
         """
-        Очищает папку от всех файлов
+        Очищает папку от всех png файлов
         :return:
         """
-        try:
-            shutil.rmtree(self.path)
-            os.mkdir(self.path)
-        except:
-            pass
+        for file in os.listdir(str(self.path)):
+            if file.endswith(".png") or file.endswith(".blk"):
+                os.remove(os.path.join(str(self.path), file))
 
 
 if __name__ == "__main__":
