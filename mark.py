@@ -1,7 +1,7 @@
+import configparser
 import json
 import math
 import os
-import configparser
 
 import cv2
 import numpy as np
@@ -10,14 +10,17 @@ import numpy as np
 def get_game_path_from_config():
     """Возвращает путь к игре из конфига"""
     config = configparser.ConfigParser()
-    config.read('config.ini')
-    path = config['DEFAULT']['game_path']
-    path.replace('/', '\\')
-    path = path + '\Screenshots'
+    config.read("config.ini")
+    path = config["DEFAULT"]["game_path"]
+    path.replace("/", "\\")
+    path = path + "\\Screenshots"
     return path
 
+
 class Mark:
-    def __init__(self, yellow_mark_coordinates: int = 0, player_mark_coordinates: int = 0):
+    def __init__(
+        self, yellow_mark_coordinates: int = 0, player_mark_coordinates: int = 0
+    ):
         self._yellow_mark_coordinates = yellow_mark_coordinates
         self._player_mark_coordinates = player_mark_coordinates
         self._path = get_game_path_from_config()
@@ -97,7 +100,7 @@ class Mark:
         try:
             length_x = abs(yellow_mark[0] - player_mark[0])
             length_y = abs(yellow_mark[1] - player_mark[1])
-            result = math.sqrt(length_x ** 2 + length_y ** 2)
+            result = math.sqrt(length_x**2 + length_y**2)
             return int(result * int(self.parse_scale()) / int(self.parse_pixels()))
         except Exception as e:
             return
@@ -131,15 +134,15 @@ def crop_screenshot(image):
     x = 1440  # координаты области для обрезки
     h = 1920  # высота изображения
     w = 1080  # ширина изображения
-    cropped = image[y: y + h, x: x + w]
+    cropped = image[y : y + h, x : x + w]
     cropped = cv2.rotate(cropped, cv2.ROTATE_180)
-    cropped = cropped[28: 28 + cropped.shape[1], 48: 48 + cropped.shape[0]]
+    cropped = cropped[28 : 28 + cropped.shape[1], 48 : 48 + cropped.shape[0]]
     cropped = cv2.rotate(cropped, cv2.ROTATE_180)
     return cropped
 
 
 def get_last_created_file(
-        path: str = ".", file_format: str = ".blk"
+    path: str = ".", file_format: str = ".blk"
 ) -> os.DirEntry or None:
     """Возвращает последний созданный файл в папке нужного формата.
     :param path: Path to directory (default - '.')
