@@ -7,6 +7,7 @@ from PyQt5.QtCore import pyqtSignal as Signal
 from PyQt5.QtWidgets import *
 from PyQt5.QtWidgets import QFileDialog
 from pynput.keyboard import Listener
+from transliterate import translit
 
 import main
 
@@ -37,11 +38,13 @@ def get_data_from_config(key):
     return data
 
 
+
 class MyGetPosThread(QThread):
     positionSign = Signal(object)
 
     def __init__(self, parent):
         QThread.__init__(self, parent)
+
 
     def addPositionEventListener(self, listener):
         self.positionSign.connect(listener)
@@ -60,7 +63,9 @@ class MyGetPosThread(QThread):
         except:
             pass
 
+
     def run(self):
+
         with Listener(on_press=self.on_press) as listener:
             listener.join()
 
@@ -104,7 +109,7 @@ class Ui_MainWindow(QWidget):
         self.progressBar = QtWidgets.QProgressBar(self.frame_2)
         self.pushButton_pathToDir = QtWidgets.QPushButton(self.centralwidget)
         self.pushButton_connectTG = QtWidgets.QPushButton(self.centralwidget)
-        self.pushButton_startStop = QtWidgets.QPushButton(self.centralwidget)
+        # self.pushButton_startStop = QtWidgets.QPushButton(self.centralwidget)
         self.pushButton_clearDic = QtWidgets.QPushButton(self.centralwidget)
         self.pushButton_chooseButton = QtWidgets.QPushButton(self.centralwidget)
         self.textEdit_selected_button = QtWidgets.QTextEdit(self.centralwidget)
@@ -135,8 +140,8 @@ class Ui_MainWindow(QWidget):
         sizePolicy.setHeightForWidth(main_window.sizePolicy().hasHeightForWidth())
 
         main_window.setSizePolicy(sizePolicy)
-        main_window.setMinimumSize(QtCore.QSize(460, 465))
-        main_window.setMaximumSize(QtCore.QSize(460, 465))
+        main_window.setMinimumSize(QtCore.QSize(460, 400))
+        main_window.setMaximumSize(QtCore.QSize(460, 400))
         main_window.setSizeIncrement(QtCore.QSize(0, 0))
 
         font = QtGui.QFont()
@@ -156,11 +161,11 @@ class Ui_MainWindow(QWidget):
         )
         main_window.setTabShape(QtWidgets.QTabWidget.Rounded)
 
-        self.centralwidget.setEnabled(True)
-        self.centralwidget.setSizePolicy(sizePolicy)
-        self.centralwidget.setMinimumSize(QtCore.QSize(800, 0))
-        self.centralwidget.setMaximumSize(QtCore.QSize(9999, 9999))
-        self.centralwidget.setObjectName("centralwidget")
+        # self.centralwidget.setEnabled(True)
+        # self.centralwidget.setSizePolicy(sizePolicy)
+        # self.centralwidget.setMinimumSize(QtCore.QSize(800, 0))
+        # self.centralwidget.setMaximumSize(QtCore.QSize(9999, 9999))
+        # self.centralwidget.setObjectName("centralwidget")
 
         self.frame_2.setGeometry(QtCore.QRect(100, 549, 701, 51))
         self.frame_2.setStyleSheet("background-color: rgb(32, 34, 37);")
@@ -168,40 +173,41 @@ class Ui_MainWindow(QWidget):
         self.frame_2.setFrameShadow(QtWidgets.QFrame.Raised)
         self.frame_2.setObjectName("frame_2")
 
-        self.pushButton_pathToDir.setGeometry(QtCore.QRect(240, 220, 200, 70))
+        self.pushButton_pathToDir.setGeometry(QtCore.QRect(240, 150, 200, 70))
         self.pushButton_pathToDir.setSizePolicy(sizePolicy)
         self.pushButton_pathToDir.setFont(font)
         self.pushButton_pathToDir.setStyleSheet(self.button_css_default)
         self.pushButton_pathToDir.setObjectName("pushButton_pathToDir")
 
-        self.pushButton_connectTG.setGeometry(QtCore.QRect(20, 220, 200, 70))
+        self.pushButton_connectTG.setGeometry(QtCore.QRect(20, 150, 200, 70))
         self.pushButton_connectTG.setSizePolicy(sizePolicy)
-        self.pushButton_connectTG.setStyleSheet(self.button_css_default)
+        self.pushButton_connectTG.setStyleSheet(self.button_css_unenable)
         self.pushButton_connectTG.setObjectName("pushButton_connectTG")
+        self.pushButton_connectTG.setEnabled(False)
+        # self.pushButton_startStop.setGeometry(QtCore.QRect(20, 130, 421, 70))
+        # self.pushButton_startStop.setSizePolicy(sizePolicy)
+        # self.pushButton_startStop.setStyleSheet(self.button_css_default)
+        # self.pushButton_startStop.setObjectName("pushButton_startStop")
 
-        self.pushButton_startStop.setGeometry(QtCore.QRect(20, 130, 421, 70))
-        self.pushButton_startStop.setSizePolicy(sizePolicy)
-        self.pushButton_startStop.setStyleSheet(self.button_css_default)
-        self.pushButton_startStop.setObjectName("pushButton_startStop")
-
-        self.pushButton_clearDic.setGeometry(QtCore.QRect(20, 310, 200, 70))
+        self.pushButton_clearDic.setGeometry(QtCore.QRect(20, 240, 200, 70))
         self.pushButton_clearDic.setSizePolicy(sizePolicy)
-        self.pushButton_clearDic.setStyleSheet(self.button_css_default)
+        self.pushButton_clearDic.setStyleSheet(self.button_css_unenable)
         self.pushButton_clearDic.setObjectName("pushButton_clearDic")
+        self.pushButton_clearDic.setEnabled(False)
 
-        self.pushButton_chooseButton.setGeometry(QtCore.QRect(240, 310, 200, 70))
+        self.pushButton_chooseButton.setGeometry(QtCore.QRect(240, 240, 200, 70))
         self.pushButton_chooseButton.setSizePolicy(sizePolicy)
         self.pushButton_chooseButton.setStyleSheet(self.button_css_default)
         self.pushButton_chooseButton.setObjectName("pushButton_chooseButton")
 
         self.textEdit_selected_button.setEnabled(False)
-        self.textEdit_selected_button.setGeometry(QtCore.QRect(240, 400, 201, 51))
+        self.textEdit_selected_button.setGeometry(QtCore.QRect(240, 330, 201, 51))
         self.textEdit_selected_button.setFont(font)
         self.textEdit_selected_button.setStyleSheet(self.textEdit_css)
         self.textEdit_selected_button.setObjectName("textEdit_selected_button")
 
         self.textEdit_license_date.setEnabled(False)
-        self.textEdit_license_date.setGeometry(QtCore.QRect(20, 400, 201, 51))
+        self.textEdit_license_date.setGeometry(QtCore.QRect(20, 330, 201, 51))
         self.textEdit_license_date.setFont(font)
         self.textEdit_license_date.setStyleSheet(self.textEdit_css)
         self.textEdit_license_date.setObjectName("textEdit_license_date")
@@ -225,7 +231,7 @@ class Ui_MainWindow(QWidget):
         main_window.setWindowTitle(_translate("WT-YMMS", "WT-YMMS"))
         self.pushButton_pathToDir.setText(_translate("WT-YMMS", "Путь к папке"))
         self.pushButton_connectTG.setText(_translate("WT-YMMS", "Вывод в ТГ"))
-        self.pushButton_startStop.setText(_translate("WT-YMMS", "Старт"))
+        # self.pushButton_startStop.setText(_translate("WT-YMMS", "Старт"))
         self.pushButton_clearDic.setText(_translate("WT-YMMS", "Очистить папку"))
         self.pushButton_chooseButton.setText(_translate("WT-YMMS", "Настроить кнопку"))
         try:
@@ -242,54 +248,27 @@ class Ui_MainWindow(QWidget):
         Добавляет функции к кнопкам
         :return:
         """
-        self.pushButton_startStop.clicked.connect(lambda: self.start_app())
+        # self.pushButton_startStop.clicked.connect(lambda: self.start_app())
         self.pushButton_pathToDir.clicked.connect(lambda: self.openFileNameDialog())
         self.pushButton_chooseButton.clicked.connect(lambda: self.choose_button())
 
+
     # def start_app(self):
-    #     """
-    #     Выводит дистанцию от метки игрока до желтой метки
-    #     :return:
-    #     """
+    #     self.enableButtons(self.is_on)
     #     try:
+    #         self.enableButtons(self.is_on)
     #         if not self.is_on:
+    #             res = main.main()
+    #             self.textEdit_distance.setText(str(res))
     #             self.is_on = True
-    #
-    #             def on_press(key):
-    #                 # print("{0} pressed".format(key))
-    #
-    #                 if str(key) == get_data_from_config("button"):
-    #                     return False
-    #
-    #             with Listener(on_press=on_press, on_release=None) as listener:
-    #                 self.textEdit_distance.setText(str(main.main()))
-    #                 listener.join()
     #         else:
     #             self.is_on = False
-    #         self.enableButtons(not self.is_on)
+    #
     #     except:
     #         self.pushButton_startStop.setEnabled(False)
     #         self.pushButton_startStop.setStyleSheet(self.button_css_unenable)
+    #         self.enableButtons(True)
     #         self.pushButton_startStop.setText("Неверный путь к папке")
-    def start_app(self):
-        self.enableButtons(self.is_on)
-        try:
-            self.enableButtons(self.is_on)
-            if not self.is_on:
-                res = main.main()
-                self.textEdit_distance.setText(str(res))
-                self.is_on = True
-            else:
-                self.is_on = False
-
-        except:
-            self.pushButton_startStop.setEnabled(False)
-            self.pushButton_startStop.setStyleSheet(self.button_css_unenable)
-            self.enableButtons(True)
-            self.pushButton_startStop.setText("Неверный путь к папке")
-
-    def get_state(self):
-        return self.is_on
 
     def onPosEvent(self):
         res = main.main()
@@ -301,18 +280,18 @@ class Ui_MainWindow(QWidget):
         :return:
         """
         options = QFileDialog.Options()
-        options |= QFileDialog.DontUseNativeDialog
+        # options |= QFileDialog.DontUseNativeDialog
         path = str(
             QFileDialog.getExistingDirectory(
-                None, "Select Directory", "", options=options
+                None, "Выберите папку War Thunder", "", options=options
             )
         )
         if path:
             self.path = path
             save_data_to_config("game_path", path)
-            self.pushButton_startStop.setEnabled(True)
-            self.pushButton_startStop.setStyleSheet(self.button_css_default)
-            self.pushButton_startStop.setText("Старт")
+            # self.pushButton_startStop.setEnabled(True)
+            # self.pushButton_startStop.setStyleSheet(self.button_css_default)
+            # self.pushButton_startStop.setText("Старт")
 
     def choose_button(self):
         def on_press(key):
@@ -331,14 +310,14 @@ class Ui_MainWindow(QWidget):
         self.pushButton_connectTG.setEnabled(param)
         self.pushButton_clearDic.setEnabled(param)
         if param:
-            self.pushButton_startStop.setText("Старт")
+            # self.pushButton_startStop.setText("Старт")
             self.pushButton_chooseButton.setStyleSheet(self.button_css_default)
             self.pushButton_pathToDir.setStyleSheet(self.button_css_default)
             self.pushButton_connectTG.setStyleSheet(self.button_css_default)
             self.pushButton_clearDic.setStyleSheet(self.button_css_default)
         else:
             self.textEdit_distance.setText("")
-            self.pushButton_startStop.setText("Стоп")
+            # self.pushButton_startStop.setText("Стоп")
             self.pushButton_chooseButton.setStyleSheet(self.button_css_unenable)
             self.pushButton_pathToDir.setStyleSheet(self.button_css_unenable)
             self.pushButton_connectTG.setStyleSheet(self.button_css_unenable)
