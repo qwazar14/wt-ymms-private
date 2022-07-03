@@ -13,8 +13,9 @@ def get_game_path_from_config():
     config.read('config.ini')
     path = config['DEFAULT']['game_path']
     path.replace('/', '\\')
-    path = path + '\Screenshots'
+    path = path + '\\Screenshots'
     return path
+
 
 class Mark:
     def __init__(self, yellow_mark_coordinates: int = 0, player_mark_coordinates: int = 0):
